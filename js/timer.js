@@ -1,7 +1,28 @@
+const template = 
+  `<div class="field">
+        <span class="value" data-value="days">11</span>
+        <span class="label">Days</span>
+      </div>
 
+      <div class="field">
+        <span class="value" data-value="hours">11</span>
+        <span class="label">Hours</span>
+      </div>
 
+      <div class="field">
+        <span class="value" data-value="mins">11</span>
+        <span class="label">Minutes</span>
+      </div>
+
+      <div class="field">
+        <span class="value" data-value="secs">11</span>
+        <span class="label">Seconds</span>
+      </div>`
+  
+  
 
 export default function CountdownTimer({ selector, targetDate }) {
+  document.querySelector(selector).insertAdjacentHTML('beforeend', template);
   
 const refs = {
   days: document.querySelector(`${selector} [data-value="days"]`),
@@ -12,7 +33,7 @@ const refs = {
 
 const intervalId = setInterval(() => {
       const currentTime = Date.now();
-      const time = targetDate - currentTime;
+      const time = targetDate.getTime() - currentTime;
     const {days, hours, mins, secs } = getTimeComponents(time);
     refs.days.textContent = days;
     refs.hours.textContent = hours;
@@ -26,11 +47,7 @@ const intervalId = setInterval(() => {
   }
 
     if (time <= 0) {
-      clearInterval(this.intervalId);
-      // refs.days.textContent = '00';
-      // refs.hours.textContent = '00';
-      // refs.mins.textContent = '00';
-      // refs.secs.textContent = '00';
+      clearInterval(intervalId);
     }
     }, 1000);
 
